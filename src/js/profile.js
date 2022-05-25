@@ -134,7 +134,9 @@ export function sortProfiles(sortOrder) {
 }
 
 export function exportProfile(profile, { keepStyles } = {}) {
-  return profileHooks.exportProfileHook(lodashCloneDeep(profile), { keepStyles });
+  const exportedProfile = profileHooks.exportProfileHook(lodashCloneDeep(profile), { keepStyles });
+  console.log('Exporting profile', exportedProfile);
+  return exportedProfile;
 }
 
 export function importProfiles(importProfiles) {
