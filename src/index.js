@@ -14,7 +14,9 @@ export * as toast from './js/toast.js';
 export * as userAgent from './js/user-agent.js';
 
 import Autocomplete from './svelte/Autocomplete.svelte';
+import AutocopyTextfield from './svelte/AutocopyTextfield.svelte';
 import BaseDialog from './svelte/BaseDialog.svelte';
+import Chip from './svelte/Chip.svelte';
 import ColorPicker from './svelte/svelte-picker/Picker.svelte';
 import LockIcon from './svelte/LockIcon.svelte';
 import MdiIcon from './svelte/MdiIcon.svelte';
@@ -22,7 +24,9 @@ import SignInRequiredDialog from './svelte/SignInRequiredDialog.svelte';
 import UpgradeDialog from './svelte/UpgradeDialog.svelte';
 export {
   Autocomplete,
+  AutocopyTextfield,
   BaseDialog,
+  Chip,
   ColorPicker,
   LockIcon,
   MdiIcon,
