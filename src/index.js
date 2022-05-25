@@ -3,6 +3,7 @@ export * as changeStack from './js/change-stack.js';
 export * as color from './js/color.js';
 export * as colorScheme from './js/color-scheme.js';
 export * as commandHandler from './js/command-handler.js';
+export * as constants from './js/constants.js';
 export * as contextMenuManager from './js/context-menu-manager.js';
 export * as datasource from './js/datasource.js';
 export * as dialog from './js/dialog.js';
