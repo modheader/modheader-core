@@ -17,6 +17,7 @@ export * as toast from './js/toast.js';
 export * as userAgent from './js/user-agent.js';
 export * as utils from './js/utils.js';
 
+import AppLayout from './svelte/AppLayout.svelte';
 import Autocomplete from './svelte/Autocomplete.svelte';
 import AutocopyTextfield from './svelte/AutocopyTextfield.svelte';
 import BaseDialog from './svelte/BaseDialog.svelte';
@@ -29,10 +30,12 @@ import MdiIcon from './svelte/MdiIcon.svelte';
 import ProfileBadge from './svelte/ProfileBadge.svelte';
 import ProfileBadgeDialog from './svelte/ProfileBadgeDialog.svelte';
 import SignInRequiredDialog from './svelte/SignInRequiredDialog.svelte';
+import TopBar from './svelte/TopBar.svelte';
 import TopBarPauseButton from './svelte/TopBarPauseButton.svelte';
 import TopBarSignInButton from './svelte/TopBarSignInButton.svelte';
 import UpgradeDialog from './svelte/UpgradeDialog.svelte';
 export {
+  AppLayout,
   Autocomplete,
   AutocopyTextfield,
   BaseDialog,
@@ -45,6 +48,7 @@ export {
   ProfileBadge,
   ProfileBadgeDialog,
   SignInRequiredDialog,
+  TopBar,
   TopBarPauseButton,
   TopBarSignInButton,
   UpgradeDialog
