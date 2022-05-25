@@ -12,6 +12,7 @@ export * as storageWriter from './js/storage-writer.js';
 export * as tabs from './js/tabs.js';
 export * as toast from './js/toast.js';
 export * as userAgent from './js/user-agent.js';
+export * as utils from './js/utils.js';
 
 import Autocomplete from './svelte/Autocomplete.svelte';
 import AutocopyTextfield from './svelte/AutocopyTextfield.svelte';

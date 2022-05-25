@@ -6,8 +6,11 @@
   "exports": "./src/index.js",
   "dependencies": {
     "@mdi/js": "^6.5.95",
+    "@smui/button": "^6.0.0-beta.16",
     "@smui/dialog": "^6.0.0-beta.16",
     "@smui/icon-button": "^6.0.0-beta.16",
+    "@smui/linear-progress": "^6.0.0-beta.16",
+    "@smui/textfield": "^6.0.0-beta.16",
     "lodash": "^4.17.21",
     "svelte": "^3.46.4"
   },
