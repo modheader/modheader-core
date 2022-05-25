@@ -1,7 +1,7 @@
 <script>
   import LinearProgress from '@smui/linear-progress';
   import Textfield from '@smui/textfield';
-  import { toast } from '@modheader/core';
+  import { showMessage } from '../js/toast.js';
 
   export let value;
   export let updating = false;
@@ -20,7 +20,7 @@
     } else {
       document.execCommand('copy');
     }
-    toast.showMessage('Copied to clipboard!');
+    showMessage('Copied to clipboard!');
   }
 </script>
 

@@ -3,14 +3,26 @@
   "version": "1.0.0",
   "description": "Core libraries for ModHeader",
   "type": "module",
-  "exports": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "dependencies": {
     "@mdi/js": "^6.5.95",
+    "@smui-extra/badge": "^6.0.0-beta.16",
     "@smui/button": "^6.0.0-beta.16",
+    "@smui/checkbox": "^6.0.0-beta.16",
     "@smui/dialog": "^6.0.0-beta.16",
+    "@smui/form-field": "^6.0.0-beta.16",
     "@smui/icon-button": "^6.0.0-beta.16",
     "@smui/linear-progress": "^6.0.0-beta.16",
+    "@smui/list": "^6.0.0-beta.16",
+    "@smui/menu": "^6.0.0-beta.16",
+    "@smui/tab": "^6.0.0-beta.16",
+    "@smui/tab-bar": "^6.0.0-beta.16",
     "@smui/textfield": "^6.0.0-beta.16",
+    "js-base64": "^3.2.4",
     "lodash": "^4.17.21",
     "svelte": "^3.46.4"
   },
