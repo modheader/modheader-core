@@ -35,12 +35,12 @@ async function updateContextMenuIfNeeded(id, { title, onclick }) {
 export async function resetContextMenu(chromeLocal) {
   if (chromeLocal.isPaused) {
     await updateContextMenuIfNeeded(PAUSE_MENU_ID, {
-      title: 'Unpause ModHeader',
+      title: `Unpause ${process.env.PRODUCT_NAME}`,
       onclick: () => setPaused(false)
     });
   } else {
     await updateContextMenuIfNeeded(PAUSE_MENU_ID, {
-      title: 'Pause ModHeader',
+      title: `Pause ${process.env.PRODUCT_NAME}`,
       onclick: () => setPaused(true)
     });
   }

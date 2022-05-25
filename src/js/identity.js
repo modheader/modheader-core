@@ -18,7 +18,7 @@ export async function loadSignedInUser() {
     await setLocal({ signedInUser: user });
     signedInUser.set(user);
   } catch (err) {
-    console.log('User not logged in to ModHeader');
+    console.log(`User not logged in to ${process.env.PRODUCT_NAME}`);
   }
 }
 

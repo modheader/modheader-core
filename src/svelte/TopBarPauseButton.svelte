@@ -9,7 +9,7 @@
 <IconButton
   dense
   on:click={() => isPaused.set(!$isPaused)}
-  title={$isPaused ? 'Resume ModHeader' : 'Pause ModHeader'}
+  title={$isPaused ? `Resume ${process.env.PRODUCT_NAME}` : `Pause ${process.env.PRODUCT_NAME}`}
 >
   {#if $isPaused}
     <MdiIcon size="24" icon={mdiPlay} color={$buttonColor} />

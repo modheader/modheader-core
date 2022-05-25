@@ -21,6 +21,7 @@ import Autocomplete from './svelte/Autocomplete.svelte';
 import AutocopyTextfield from './svelte/AutocopyTextfield.svelte';
 import BaseDialog from './svelte/BaseDialog.svelte';
 import Chip from './svelte/Chip.svelte';
+import Drawer from './svelte/Drawer.svelte';
 import ExportDialog from './svelte/ExportDialog.svelte';
 import ImportDialog from './svelte/ImportDialog.svelte';
 import LockIcon from './svelte/LockIcon.svelte';
@@ -36,6 +37,7 @@ export {
   AutocopyTextfield,
   BaseDialog,
   Chip,
+  Drawer,
   ExportDialog,
   ImportDialog,
   LockIcon,
