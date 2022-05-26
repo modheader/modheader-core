@@ -1,13 +1,15 @@
 import { get, derived } from 'svelte/store';
-import { color, datasource, toast, utils } from '@modheader/core';
 import lodashCloneDeep from 'lodash/cloneDeep.js';
 import lodashOrderBy from 'lodash/orderBy.js';
 import lodashIsEqual from 'lodash/isEqual.js';
 import lodashDebounce from 'lodash/debounce.js';
 import lodashClone from 'lodash/clone.js';
+import { lightOrDark } from './color.js';
+import { profiles, commitData, selectedProfileIndex, isInitialized } from './datasource.js';
+import { showMessage } from './toast.js';
+import { swap } from './utils.js';
 
 export const PROFILE_VERSION = 2;
-const { profiles, commitData, selectedProfileIndex, isInitialized } = datasource;
 let profileHooks;
 let latestProfiles = [];
 let latestSelectedProfileIndex = 0;
@@ -31,7 +33,7 @@ export const selectedProfile = derived(
 export const buttonColor = derived(
   [selectedProfile],
   ([$selectedProfile]) =>
-    color.lightOrDark($selectedProfile.backgroundColor) === 'light' ? 'black' : 'white',
+    lightOrDark($selectedProfile.backgroundColor) === 'light' ? 'black' : 'white',
   'white'
 );
 
@@ -113,7 +115,7 @@ export function removeProfile(profileIndex) {
     latestProfiles = [createProfile()];
   }
   commitData({ newProfiles: latestProfiles, newIndex: latestProfiles.length - 1 });
-  toast.showMessage('Profile deleted', { canUndo: true });
+  showMessage('Profile deleted', { canUndo: true });
 }
 
 export function cloneProfile(profile) {
@@ -121,15 +123,15 @@ export function cloneProfile(profile) {
   newProfile.title = 'Copy of ' + newProfile.title;
   latestProfiles.push(newProfile);
   commitData({ newProfiles: latestProfiles, newIndex: latestProfiles.length - 1 });
-  toast.showMessage('Profile cloned', { canUndo: true });
+  showMessage('Profile cloned', { canUndo: true });
 }
 
 export function sortProfiles(sortOrder) {
   profiles.set(lodashOrderBy(latestProfiles, ['title'], [sortOrder]));
   if (sortOrder === 'asc') {
-    toast.showMessage('Profiles sorted in ascending order', { canUndo: true });
+    showMessage('Profiles sorted in ascending order', { canUndo: true });
   } else {
-    toast.showMessage('Profiles sorted in descending order', { canUndo: true });
+    showMessage('Profiles sorted in descending order', { canUndo: true });
   }
 }
 
@@ -143,7 +145,7 @@ export function importProfiles(importProfiles) {
   fixProfiles(importProfiles);
   const innerProfiles = latestProfiles.concat(importProfiles);
   commitData({ newProfiles: innerProfiles, newIndex: innerProfiles.length - 1 });
-  toast.showMessage(`Imported profiles: ${importProfiles.map((p) => p.title).join(', ')}`, {
+  showMessage(`Imported profiles: ${importProfiles.map((p) => p.title).join(', ')}`, {
     canUndo: true
   });
 }
@@ -151,7 +153,7 @@ export function importProfiles(importProfiles) {
 export function restoreToProfiles(profilesToRestore) {
   fixProfiles(profilesToRestore);
   commitData({ newProfiles: profilesToRestore, newIndex: 0 });
-  toast.showMessage('Profiles restored', { canUndo: true });
+  showMessage('Profiles restored', { canUndo: true });
 }
 
 export function selectProfile(profileIndex) {
@@ -160,7 +162,7 @@ export function selectProfile(profileIndex) {
 
 export function swapProfile(profileIndex1, profileIndex2) {
   commitData({
-    newProfiles: utils.swap(latestProfiles, profileIndex1, profileIndex2),
+    newProfiles: swap(latestProfiles, profileIndex1, profileIndex2),
     newIndex: profileIndex2
   });
 }

@@ -4,18 +4,14 @@
   import Button, { Label } from '@smui/button';
   import { mdiFileImport, mdiCheck } from '@mdi/js';
   import Textfield from '@smui/textfield';
-  import {
-    api,
-    constants,
-    dialog,
-    profile,
-    toast,
-    userAgent,
-    BaseDialog,
-    MdiIcon
-  } from '@modheader/core';
-
-  const { showImportDialog } = dialog;
+  import BaseDialog from './BaseDialog.svelte';
+  import MdiIcon from './MdiIcon.svelte';
+  import * as api from '../js/api.js';
+  import { DISABLED_COLOR, PRIMARY_COLOR } from '../js/constants.js';
+  import { showImportDialog } from '../js/dialog.js';
+  import { importProfiles } from '../js/profile.js';
+  import { showMessage } from '../js/toast.js';
+  import { isChromiumBasedBrowser } from '../js/user-agent.js';
 
   let importText = '';
   let uploadFileInput;
@@ -23,10 +19,10 @@
   async function done() {
     try {
       const importedProfiles = await api.parseProfile({ data: importText });
-      profile.importProfiles(importedProfiles);
+      importProfiles(importedProfiles);
       showImportDialog.set(false);
     } catch (err) {
-      toast.showMessage('Failed to import profiles. Please double check your exported profile.');
+      showMessage('Failed to import profiles. Please double check your exported profile.');
     }
   }
 
@@ -38,7 +34,7 @@
       if (!lodashIsArray(importedProfiles)) {
         importedProfiles = [importedProfiles];
       }
-      profile.importProfiles(importedProfiles);
+      importProfiles(importedProfiles);
       showImportDialog.set(false);
     };
     reader.readAsText(file, 'utf8');
@@ -50,7 +46,7 @@
     <div>Enter the URL / JSON encoded profile here to import.</div>
     <Textfield textarea class="extra-large-textarea" input$rows="40" bind:value={importText} />
     <svelte:fragment slot="footer">
-      {#if userAgent.isChromiumBasedBrowser()}
+      {#if isChromiumBasedBrowser()}
         <!-- Opening the file would close the popup in Firefox, so we can't support it. -->
         <input
           bind:this={uploadFileInput}
@@ -59,7 +55,7 @@
           on:change={(e) => loadFile(e.target.files[0])}
         />
         <Button on:click={() => uploadFileInput.click()}>
-          <MdiIcon size="24" icon={mdiFileImport} color={constants.PRIMARY_COLOR} />
+          <MdiIcon size="24" icon={mdiFileImport} color={PRIMARY_COLOR} />
           <Label class="ml-small">Load from file</Label>
         </Button>
       {/if}
@@ -67,7 +63,7 @@
         <MdiIcon
           size="24"
           icon={mdiCheck}
-          color={lodashIsEmpty(importText) ? constants.DISABLED_COLOR : constants.PRIMARY_COLOR}
+          color={lodashIsEmpty(importText) ? DISABLED_COLOR : PRIMARY_COLOR}
         />
         <Label class="ml-small">Import</Label>
       </Button>

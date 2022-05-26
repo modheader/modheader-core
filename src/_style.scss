@@ -1,0 +1,191 @@
+@use '@material/button/index' as mdc-button;
+
+@use '@smui-extra/badge/_style.scss' as badge;
+@use '@smui/button/_style.scss' as button;
+@use '@smui/checkbox/_style.scss' as checkbox;
+@use '@smui/chips/_style.scss' as chips;
+@use '@smui/dialog/_style.scss' as dialog;
+@use '@smui/drawer/_style.scss' as drawer;
+@use '@smui/form-field/_style.scss' as form-field;
+@use '@smui/icon-button/_style.scss' as icon-button;
+@use '@smui/linear-progress/_style.scss' as linear-progress;
+@use '@smui/list/_style.scss' as list;
+@use '@smui/menu-surface/_style.scss' as menu-surface;
+@use '@smui/snackbar/_style.scss' as snackbar;
+@use '@smui/tab/_style.scss' as tab;
+@use '@smui/tab-bar/_style.scss' as tabbar;
+@use '@smui/textfield/_style.scss' as textfield;
+@use '@smui/top-app-bar/_style.scss' as topappbar;
+
+html,
+body {
+  font-family: Roboto, Helvetica Neue, sans-serif;
+  position: relative !important;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+.mdc-dialog__content {
+  overflow-x: hidden !important;
+}
+
+.chip-button {
+  @include mdc-button.shape-radius(999px);
+  text-transform: none !important;
+  height: 24px;
+  margin: 2px;
+}
+
+.small-icon-button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-align-text-bottom {
+  vertical-align: text-bottom;
+}
+
+.mx-1 {
+  margin-left: 0.25rem !important;
+  margin-right: 0.25rem !important;
+}
+
+.me-1 {
+  margin-right: 0.25rem !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+.medium-icon-button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+}
+
+.mdc-icon-button .smui-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ml-small {
+  margin-left: 5px;
+}
+
+.dialog-close-button {
+  float: right;
+  top: 4px;
+}
+
+.dialog-close-button {
+  --mdc-ripple-top: 12px !important;
+  --mdc-ripple-left: 12px !important;
+  --mdc-ripple-fg-size: 24px !important;
+}
+
+.data-table {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.data-table:not(:last-child) {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--separator-color);
+}
+
+.data-table-title {
+  margin: 6px 0;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.data-table-row-unchecked {
+  background: var(--disabled-background);
+}
+
+.data-table-row {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.data-table-cell {
+  padding: 0 2px;
+}
+
+.data-table .mdc-checkbox {
+  padding: 2px;
+}
+
+.data-table .mdc-checkbox .mdc-checkbox__background {
+  top: 2px;
+  left: 8px;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-fixed-icon {
+  flex-basis: 30px;
+}
+
+.more-menu-icon {
+  margin: 0 5px 0 0;
+  padding: 0 2px 0 0;
+}
+
+.caption {
+  font-size: 75%;
+}
+
+.dialog-content {
+  margin: 0;
+  padding: 0;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.error-text {
+  color: var(--mdc-theme-error);
+}
+
+.export-text-field {
+  min-width: 400px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.inline-filter-row {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mdc-deprecated-list-item {
+  white-space: nowrap !important;
+}
+
+.mdc-deprecated-list-item--disabled {
+  color: #888;
+}
