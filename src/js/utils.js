@@ -23,3 +23,7 @@ export function filterEnabled(rows) {
   }
   return output;
 }
+
+export function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
