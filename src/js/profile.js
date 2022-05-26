@@ -74,11 +74,11 @@ function isExistingProfileTitle_(title) {
 }
 
 export function createProfile() {
-  let index = 1;
-  while (isExistingProfileTitle_('Profile ' + index)) {
-    ++index;
+  let profileNum = 1;
+  while (isExistingProfileTitle_('Profile ' + profileNum)) {
+    ++profileNum;
   }
-  return profileHooks.createProfileHook({ index });
+  return profileHooks.createProfileHook({ profileNum });
 }
 
 export function updateProfile(change) {
@@ -136,9 +136,7 @@ export function sortProfiles(sortOrder) {
 }
 
 export function exportProfile(profile, { keepStyles } = {}) {
-  const exportedProfile = profileHooks.exportProfileHook(lodashCloneDeep(profile), { keepStyles });
-  console.log('Exporting profile', exportedProfile);
-  return exportedProfile;
+  return profileHooks.exportProfileHook(lodashCloneDeep(profile), { keepStyles });
 }
 
 export function importProfiles(importProfiles) {
