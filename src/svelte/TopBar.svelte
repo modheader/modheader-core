@@ -91,35 +91,3 @@
     <Button on:click={() => isPaused.set(false)}>Resume</Button>
   </Actions>
 </Snackbar>
-
-<style module>
-  .profile-title {
-    border: none;
-    background: none;
-    color: #fff;
-    margin: 0 10px;
-    font-size: 18px;
-    outline: none;
-    padding: 0;
-  }
-
-  .top-bar {
-    height: 48px;
-    width: var(--top-bar-width);
-  }
-
-  .top-bar-profile-badge {
-    border: 2px solid white;
-    border-radius: 50%;
-    font-size: 20px;
-    top: 10px;
-    position: absolute;
-    left: 8px;
-  }
-
-  .top-bar-profile-badge-text {
-    width: 24px;
-    display: flex;
-    justify-content: center;
-  }
-</style>

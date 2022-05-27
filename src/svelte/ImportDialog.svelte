@@ -70,12 +70,3 @@
     </svelte:fragment>
   </BaseDialog>
 {/if}
-
-<style module>
-  .extra-large-textarea {
-    width: 400px;
-    height: 250px;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-</style>

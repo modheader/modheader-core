@@ -65,10 +65,3 @@
     </button>
   {/if}
 </div>
-
-<style module>
-  .small-chip {
-    height: 24px;
-    margin: 2px;
-  }
-</style>

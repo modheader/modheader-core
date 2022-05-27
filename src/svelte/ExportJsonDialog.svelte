@@ -67,18 +67,3 @@
     </div>
   </BaseDialog>
 {/if}
-
-<style module>
-  .export-dialog-content {
-    display: grid;
-    grid-template-columns: auto auto;
-  }
-
-  .export-dialog-content :global(.mdc-deprecated-list-item) {
-    padding-left: 0;
-  }
-
-  .export-dialog-content :global(.mdc-deprecated-list-item__meta) {
-    margin-left: 0;
-  }
-</style>

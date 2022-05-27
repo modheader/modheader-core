@@ -47,11 +47,3 @@
     style="transform-origin: 50px center;"
   />
 </label>
-
-<style module>
-  .autocomplete-input {
-    border: none;
-    height: 30px;
-    width: 100%;
-  }
-</style>

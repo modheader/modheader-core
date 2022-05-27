@@ -61,12 +61,3 @@
     </Actions>
   </Snackbar>
 {/await}
-
-<style module>
-  .app-content {
-    margin-left: 0 !important;
-    width: var(--app-content-width);
-    position: absolute;
-    left: 36px;
-  }
-</style>

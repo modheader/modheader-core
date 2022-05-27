@@ -94,28 +94,3 @@
     </svelte:fragment>
   </BaseDialog>
 {/if}
-
-<style module>
-  .color-picker-container {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .profile-badge-preview-text {
-    background: none;
-    border: none;
-    color: white;
-    outline: none;
-    padding-left: 6px;
-    font-size: 20px;
-    width: 24px;
-  }
-
-  .profile-badge-preview {
-    border-radius: 50%;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-  }
-</style>
