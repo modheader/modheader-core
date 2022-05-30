@@ -109,7 +109,9 @@ export function addProfile() {
   commitData({ newProfiles: latestProfiles, newIndex: latestProfiles.length - 1 });
 }
 
-export function removeProfile(profileIndex) {
+export async function removeProfile(profileIndex) {
+  const profile = latestProfiles[profileIndex];
+  await profileHooks.removeProfileHook(profile)
   latestProfiles.splice(profileIndex, 1);
   if (latestProfiles.length === 0) {
     latestProfiles = [createProfile()];
@@ -118,8 +120,8 @@ export function removeProfile(profileIndex) {
   showMessage('Profile deleted', { canUndo: true });
 }
 
-export function cloneProfile(profile) {
-  const newProfile = lodashCloneDeep(profile);
+export async function cloneProfile(profile) {
+  const newProfile = await profileHooks.cloneProfileHook(profile);
   newProfile.title = 'Copy of ' + newProfile.title;
   latestProfiles.push(newProfile);
   commitData({ newProfiles: latestProfiles, newIndex: latestProfiles.length - 1 });

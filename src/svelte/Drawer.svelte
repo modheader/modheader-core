@@ -224,8 +224,8 @@
       <Text>Add profile</Text>
     </Item>
     <Item
-      on:SMUI:action={() => {
-        cloneProfile($profiles[selectedProfileIndex]);
+      on:SMUI:action={async () => {
+        await cloneProfile($profiles[selectedProfileIndex]);
         contextMenu.setOpen(false);
       }}
     >
@@ -233,9 +233,9 @@
       <Text>Clone profile</Text>
     </Item>
     <Item
-      on:SMUI:action={() => {
+      on:SMUI:action={async () => {
         contextMenu.setOpen(false);
-        removeProfile(selectedProfileIndex);
+        await removeProfile(selectedProfileIndex);
       }}
     >
       <MdiIcon class="more-menu-icon" size="24" icon={mdiClose} color="red" />
