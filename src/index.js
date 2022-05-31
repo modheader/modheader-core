@@ -30,10 +30,13 @@ import MdiIcon from './svelte/MdiIcon.svelte';
 import ProfileBadge from './svelte/ProfileBadge.svelte';
 import ProfileBadgeDialog from './svelte/ProfileBadgeDialog.svelte';
 import SignInRequiredDialog from './svelte/SignInRequiredDialog.svelte';
+import TabFilter from './svelte/TabFilter.svelte';
+import TabGroupFilter from './svelte/TabGroupFilter.svelte';
 import TopBar from './svelte/TopBar.svelte';
 import TopBarPauseButton from './svelte/TopBarPauseButton.svelte';
 import TopBarSignInButton from './svelte/TopBarSignInButton.svelte';
 import UpgradeDialog from './svelte/UpgradeDialog.svelte';
+import WindowFilter from './svelte/WindowFilter.svelte';
 export {
   AppLayout,
   Autocomplete,
@@ -48,8 +51,11 @@ export {
   ProfileBadge,
   ProfileBadgeDialog,
   SignInRequiredDialog,
+  TabFilter,
+  TabGroupFilter,
   TopBar,
   TopBarPauseButton,
   TopBarSignInButton,
-  UpgradeDialog
+  UpgradeDialog,
+  WindowFilter
 };
