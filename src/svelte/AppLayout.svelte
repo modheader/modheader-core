@@ -13,7 +13,7 @@
   import UpgradeDialog from './UpgradeDialog.svelte';
   import { reloadColorScheme } from '../js/color-scheme.js';
   import { selectedProfile, save } from '../js/profile.js';
-  import { undo, init } from '../js/datasource.js';
+  import { undo } from '../js/datasource.js';
   import { toastMessage, undoable } from '../js/toast.js';
 
   let snackbar;
@@ -37,27 +37,25 @@
   onDestroy(unsubscribeToastMessage);
 </script>
 
-{#await init() then initResult}
-  <Drawer />
+<Drawer />
 
-  <AppContent class="app-content" style="--separator-color: {$selectedProfile.backgroundColor};">
-    <slot />
-  </AppContent>
+<AppContent class="app-content" style="--separator-color: {$selectedProfile.backgroundColor};">
+  <slot />
+</AppContent>
 
-  <ExportDialog />
-  <ImportDialog />
-  <UpgradeDialog />
-  <SignInRequiredDialog />
+<ExportDialog />
+<ImportDialog />
+<UpgradeDialog />
+<SignInRequiredDialog />
 
-  <Snackbar timeoutMs={4000} bind:this={snackbar} labelText={snackbarMessage}>
-    <SnackbarLabel />
-    <Actions>
-      {#if $undoable}
-        <Button on:click={() => undo()}>Undo</Button>
-      {/if}
-      <IconButton dense on:click={() => snackbar.close()} title="Dismiss">
-        <MdiIcon size="24" icon={mdiClose} color="#888" />
-      </IconButton>
-    </Actions>
-  </Snackbar>
-{/await}
+<Snackbar timeoutMs={4000} bind:this={snackbar} labelText={snackbarMessage}>
+  <SnackbarLabel />
+  <Actions>
+    {#if $undoable}
+      <Button on:click={() => undo()}>Undo</Button>
+    {/if}
+    <IconButton dense on:click={() => snackbar.close()} title="Dismiss">
+      <MdiIcon size="24" icon={mdiClose} color="#888" />
+    </IconButton>
+  </Actions>
+</Snackbar>
