@@ -1,3 +1,4 @@
+import Bluebird from 'bluebird';
 import { get, derived } from 'svelte/store';
 import lodashCloneDeep from 'lodash/cloneDeep.js';
 import lodashOrderBy from 'lodash/orderBy.js';
@@ -111,7 +112,7 @@ export function addProfile() {
 
 export async function removeProfile(profileIndex) {
   const profile = latestProfiles[profileIndex];
-  await profileHooks.removeProfileHook(profile)
+  await profileHooks.removeProfileHook(profile);
   latestProfiles.splice(profileIndex, 1);
   if (latestProfiles.length === 0) {
     latestProfiles = [createProfile()];
@@ -141,7 +142,8 @@ export function exportProfile(profile, { keepStyles } = {}) {
   return profileHooks.exportProfileHook(lodashCloneDeep(profile), { keepStyles });
 }
 
-export function importProfiles(importProfiles) {
+export async function importProfiles(importProfiles) {
+  await Bluebird.map(importProfiles, profileHooks.importProfileHook);
   fixProfiles(importProfiles);
   const innerProfiles = latestProfiles.concat(importProfiles);
   commitData({ newProfiles: innerProfiles, newIndex: innerProfiles.length - 1 });

@@ -1,4 +1,5 @@
 <script>
+  import Bluebird from 'bluebird';
   import { encode } from 'js-base64';
   import Button, { Label } from '@smui/button';
   import FormField from '@smui/form-field';
@@ -12,6 +13,7 @@
 
   let selectedProfiles = [];
   let keepStyles = false;
+  let exportedText = '';
 
   showExportJsonDialog.subscribe((show) => {
     if (show) {
@@ -19,9 +21,13 @@
     }
   });
 
-  $: exportedText = JSON.stringify(
-    selectedProfiles.map((profile) => exportProfile(profile, { keepStyles }))
-  );
+  async function updateExportedText(selectedProfiles, keepStyles) {
+    exportedText = JSON.stringify(
+      await Bluebird.map(selectedProfiles, (profile) => exportProfile(profile, { keepStyles }))
+    );
+  }
+
+  $: updateExportedText(selectedProfiles, keepStyles);
 </script>
 
 {#if $showExportJsonDialog}

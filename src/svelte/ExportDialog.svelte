@@ -57,7 +57,7 @@
   async function createProfileUrl() {
     try {
       const profileResponse = await createProfileApi({
-        profile: exportProfile($selectedProfile, { keepStyles })
+        profile: await exportProfile($selectedProfile, { keepStyles })
       });
       updateProfile({ profileId: profileResponse.profileId });
       visibilitySummary = profileResponse.visibilitySummary;
@@ -74,7 +74,7 @@
     try {
       const profileResponse = await updateProfileApi({
         profileId: $selectedProfile.profileId,
-        profile: exportProfile($selectedProfile, { keepStyles })
+        profile: await exportProfile($selectedProfile, { keepStyles })
       });
       visibilitySummary = profileResponse.visibilitySummary;
       exportUrl = profileResponse.profileUrl;

@@ -18,8 +18,16 @@
 
   async function done() {
     try {
-      const importedProfiles = await api.parseProfile({ data: importText });
-      importProfiles(importedProfiles);
+      let importedProfiles;
+      if (importText.startsWith('[') || importText.startsWith('{')) {
+        importedProfiles = JSON.parse(importText);
+        if (!lodashIsArray(importedProfiles)) {
+          importedProfiles = [importedProfiles];
+        }
+      } else {
+        importedProfiles = await api.parseProfile({ data: importText });
+      }
+      await importProfiles(importedProfiles);
       showImportDialog.set(false);
     } catch (err) {
       showMessage('Failed to import profiles. Please double check your exported profile.');
@@ -28,13 +36,13 @@
 
   function loadFile(file) {
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const importText = event.target.result;
       let importedProfiles = JSON.parse(importText);
       if (!lodashIsArray(importedProfiles)) {
         importedProfiles = [importedProfiles];
       }
-      importProfiles(importedProfiles);
+      await importProfiles(importedProfiles);
       showImportDialog.set(false);
     };
     reader.readAsText(file, 'utf8');
