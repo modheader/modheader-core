@@ -7,10 +7,11 @@
 
 {#if $showUpgradeDialog}
   <BaseDialog bind:open={$showUpgradeDialog} title="Upgrade required">
-    <div>{$upgradeDialogString}</div>
+    <p>{$upgradeDialogString}</p>
+    <slot />
     <svelte:fragment slot="footer">
       <Button on:click={() => upgrade()}>
-        <Label class="ml-small">Learn more</Label>
+        <Label class="ml-small">Start free trial</Label>
       </Button>
     </svelte:fragment>
   </BaseDialog>
