@@ -32,7 +32,7 @@
 
 {#if $showExportJsonDialog}
   <BaseDialog bind:open={$showExportJsonDialog} title="Export / share selected profile(s)">
-    <div class="export-dialog-content">
+    <div class="export-json-dialog-content">
       <List checklist>
         {#each $profiles as profile}
           <Item>

@@ -386,16 +386,16 @@ button::-moz-focus-inner {
 }
 
 // ExportJsonDialog
-.export-dialog-content {
+.export-json-dialog-content {
   display: grid;
   grid-template-columns: auto auto;
 }
 
-.export-dialog-content .mdc-deprecated-list-item {
+.export-json-dialog-content .mdc-deprecated-list-item {
   padding-left: 0;
 }
 
-.export-dialog-content .mdc-deprecated-list-item__meta {
+.export-json-dialog-content .mdc-deprecated-list-item__meta {
   margin-left: 0;
 }
 

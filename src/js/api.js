@@ -31,13 +31,19 @@ export function parseProfile({ data }) {
 export function createProfile({ profile }) {
   return makeRequest(`/api/u/profile`, {
     method: 'POST',
-    body: JSON.stringify({ profile })
+    body: JSON.stringify({ profile, profileType: process.env.PROFILE_TYPE })
   });
 }
 
 export function updateProfile({ profileId, profile, visibility, allowedEmails }) {
   return makeRequest(`/api/u/profile`, {
     method: 'PUT',
-    body: JSON.stringify({ profileId, profile, visibility, allowedEmails })
+    body: JSON.stringify({
+      profileId,
+      profile,
+      visibility,
+      allowedEmails,
+      profileType: process.env.PROFILE_TYPE
+    })
   });
 }
