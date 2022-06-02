@@ -29,7 +29,12 @@
     >
     <TabsList {tabs} />
   {:catch error}
-    <Chip on:click={dispatchRemove} on:close={dispatchRemove} trailingAction="close">
+    <Chip
+      fieldName="close-tab-group"
+      on:click={dispatchRemove}
+      on:close={dispatchRemove}
+      trailingAction="close"
+    >
       Tab group no longer exists. Removed?
     </Chip>
   {/await}

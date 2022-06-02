@@ -29,7 +29,12 @@
     >
     <TabsList {tabs} />
   {:catch error}
-    <Chip on:click={dispatchRemove} on:close={dispatchRemove} trailingAction="close">
+    <Chip
+      fieldName="close-window"
+      on:click={dispatchRemove}
+      on:close={dispatchRemove}
+      trailingAction="close"
+    >
       Window no longer exists. Removed?
     </Chip>
   {/await}

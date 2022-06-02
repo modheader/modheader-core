@@ -52,7 +52,12 @@
       <span>{shortTitle(tab.title || tab.url || 'Unknown tab')}</span>
     {/if}
   {:catch error}
-    <Chip on:click={dispatchRemove} on:close={dispatchRemove} trailingAction="close">
+    <Chip
+      fieldName="close-tab"
+      on:click={dispatchRemove}
+      on:close={dispatchRemove}
+      trailingAction="close"
+    >
       Tab no longer exists. Removed?
     </Chip>
   {/await}
