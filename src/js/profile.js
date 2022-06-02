@@ -10,7 +10,6 @@ import { profiles, commitData, selectedProfileIndex, isInitialized } from './dat
 import { showMessage } from './toast.js';
 import { swap } from './utils.js';
 
-export const PROFILE_VERSION = 2;
 let profileHooks;
 let latestProfiles = [];
 let latestSelectedProfileIndex = 0;
