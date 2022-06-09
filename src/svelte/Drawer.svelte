@@ -156,7 +156,10 @@
       <Item
         class="main-drawer-item"
         title="Rate us"
-        on:click={() => openLink('https://modheader.com/review?browser=' + CURRENT_BROWSER)}
+        on:click={() =>
+          openLink(
+            `https://modheader.com/review?browser=${CURRENT_BROWSER}&product=${process.env.PRODUCT_NAME}`
+          )}
       >
         <span class="main-drawer-icon-container">
           <MdiIcon
@@ -171,7 +174,7 @@
       <Item
         class="main-drawer-item"
         title="Help"
-        on:click={() => openLink('https://docs.modheader.com/')}
+        on:click={() => openLink(`https://modheader.com/docs?product=${process.env.PRODUCT_NAME}`)}
       >
         <span class="main-drawer-icon-container">
           <MdiIcon
