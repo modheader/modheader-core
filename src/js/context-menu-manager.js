@@ -2,7 +2,9 @@ import { clearContextMenu, createContextMenu, updateContextMenu } from './contex
 import { setPaused } from './storage-writer.js';
 
 const PAUSE_MENU_ID = 'pause';
-const BROWSER_ACTION_CONTEXT = ['browser_action'];
+const BROWSER_ACTION_CONTEXT = [
+  chrome.runtime.getManifest().manifest_version === 3 ? 'action' : 'browser_action'
+];
 
 const currentSettings = {};
 
