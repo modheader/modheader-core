@@ -33,7 +33,10 @@ const hooks = {
     profileNum
   }),
   fixProfileHook: () => false,
-  saveProfileHook: jest.fn()
+  saveProfileHook: jest.fn(),
+  removeProfileHook: jest.fn(),
+  cloneProfileHook: (p) => p,
+  importProfileHook: (p) => p
 };
 
 describe('profile', () => {
@@ -80,7 +83,7 @@ describe('profile', () => {
     });
   });
 
-  test('Remove profile', () => {
+  test('Remove profile', async () => {
     mockDatasource.profiles.set([
       {
         title: 'Profile 1'
@@ -93,7 +96,7 @@ describe('profile', () => {
       }
     ]);
 
-    removeProfile(1);
+    await removeProfile(1);
 
     expect(mockDatasource.commitData).toHaveBeenCalledTimes(1);
     expect(mockDatasource.commitData).toHaveBeenCalledWith({
@@ -108,7 +111,7 @@ describe('profile', () => {
       ]
     });
 
-    removeProfile(0);
+    await removeProfile(0);
 
     expect(mockDatasource.commitData).toHaveBeenCalledTimes(2);
     expect(mockDatasource.commitData).toHaveBeenCalledWith({
@@ -121,7 +124,7 @@ describe('profile', () => {
     });
 
     // Create a new profile when the last profile is removed.
-    removeProfile(0);
+    await removeProfile(0);
 
     expect(mockDatasource.commitData).toHaveBeenCalledTimes(3);
     expect(mockDatasource.commitData).toHaveBeenCalledWith({
@@ -135,14 +138,14 @@ describe('profile', () => {
     expect(mockToast.showMessage).toHaveBeenCalledTimes(3);
   });
 
-  test('Clone profile', () => {
+  test('Clone profile', async () => {
     mockDatasource.profiles.set([
       {
         title: 'Profile 1'
       }
     ]);
 
-    cloneProfile({
+    await cloneProfile({
       title: 'Profile 1'
     });
 
@@ -225,14 +228,14 @@ describe('profile', () => {
     });
   });
 
-  test('Import profiles', () => {
+  test('Import profiles', async () => {
     mockDatasource.profiles.set([
       {
         title: 'Local Profile'
       }
     ]);
 
-    importProfiles([{ title: 'Imported profile 1' }, { title: 'Imported profile 2' }]);
+    await importProfiles([{ title: 'Imported profile 1' }, { title: 'Imported profile 2' }]);
 
     expect(mockDatasource.commitData).toHaveBeenCalledTimes(1);
     expect(mockDatasource.commitData).toHaveBeenCalledWith({
