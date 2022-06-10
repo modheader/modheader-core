@@ -46,7 +46,7 @@
     {/if}
     {#if $selectedProfile.hideComment}
       <span>{shortTitle(tab.title || tab.url || 'Unknown tab')}</span>
-    {/if}`
+    {/if}
   {:catch error}
     <Chip fieldName="single-tab" tooltip="Filter by current tab" on:click={() => useCurrentTab()}>
       Use current tab
