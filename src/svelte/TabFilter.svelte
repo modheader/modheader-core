@@ -23,10 +23,6 @@
     return title;
   }
 
-  function dispatchRemove() {
-    dispatch('remove');
-  }
-
   function dispatchChange() {
     dispatch('change');
   }
@@ -50,15 +46,11 @@
     {/if}
     {#if $selectedProfile.hideComment}
       <span>{shortTitle(tab.title || tab.url || 'Unknown tab')}</span>
-    {/if}
+    {/if}`
   {:catch error}
-    <Chip
-      fieldName="close-tab"
-      on:click={dispatchRemove}
-      on:close={dispatchRemove}
-      trailingAction="close"
-    >
-      Tab no longer exists. Removed?
+    <Chip fieldName="single-tab" tooltip="Filter by current tab" on:click={() => useCurrentTab()}>
+      Use current tab
     </Chip>
+    <span class="mx-1">Tab no longer exists.</span>
   {/await}
 </div>

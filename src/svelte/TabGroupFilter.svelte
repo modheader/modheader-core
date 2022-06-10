@@ -27,15 +27,10 @@
     <Chip fieldName="tab-group" tooltip="Filter by current tab group" on:click={useCurrentTabGroup}
       >Use current tab group</Chip
     >
-    <TabsList {tabs} />
-  {:catch error}
-    <Chip
-      fieldName="close-tab-group"
-      on:click={dispatchRemove}
-      on:close={dispatchRemove}
-      trailingAction="close"
-    >
-      Tab group no longer exists. Removed?
-    </Chip>
+    {#if tabs.length > 0}
+      <TabsList {tabs} />
+    {:else}
+      <span class="mx-1">Tab group no longer exists</span>
+    {/if}
   {/await}
 </div>

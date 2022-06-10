@@ -27,15 +27,10 @@
     <Chip fieldName="window" tooltip="Filter by current window." on:click={useCurrentWindow}
       >Use current window</Chip
     >
-    <TabsList {tabs} />
-  {:catch error}
-    <Chip
-      fieldName="close-window"
-      on:click={dispatchRemove}
-      on:close={dispatchRemove}
-      trailingAction="close"
-    >
-      Window no longer exists. Removed?
-    </Chip>
+    {#if tabs.length > 0}
+      <TabsList {tabs} />
+    {:else}
+      <span class="mx-1">Window no longer exists</span>
+    {/if}
   {/await}
 </div>
