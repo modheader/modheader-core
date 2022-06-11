@@ -34,8 +34,14 @@ export function build({ platforms }) {
   fs.ensureDirSync(tmpMaster);
   fs.emptyDirSync(tmpMaster);
   const excludedDirs = ['.git', 'dist', 'node_modules', 'releases'];
-  fs.copySync('.', tmpMaster, {
+  fs.copySync('.', `${tmpMaster}/modheader`, {
     filter: (src) => !excludedDirs.find((dir) => src.startsWith(dir))
+  });
+  fs.copySync(path.join('..', 'modheader-core'), `${tmpMaster}/modheader-core`, {
+    filter: (src) => {
+      const strippedPrefixPath = src.slice(path.join('..', 'modheader-core').length + 1);
+      return !excludedDirs.find((dir) => strippedPrefixPath.startsWith(dir));
+    }
   });
   zipDirectory(tmpMaster, 'releases/master.zip');
 }
