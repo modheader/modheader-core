@@ -75,6 +75,7 @@ export function openUrl({ url, path, params = {} }) {
       parsedUrl.searchParams.set(key, value);
     }
   }
+  parsedUrl.searchParams.set('product', process.env.PRODUCT_NAME);
   chrome.tabs.create({ url: parsedUrl.href }, () => {
     window.close();
   });

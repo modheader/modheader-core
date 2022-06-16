@@ -53,6 +53,7 @@ export async function upgrade() {
     path: '/pricing',
     params: {
       for: CURRENT_BROWSER,
+      product: process.env.PRODUCT_NAME,
       extension_id: chrome.runtime.id
     }
   });

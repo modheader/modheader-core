@@ -1,10 +1,13 @@
 async function makeRequest(path, params = {}) {
-  const response = await fetch(`${process.env.URL_BASE}${path}`, {
-    mode: 'cors',
-    credentials: 'include',
-    redirect: 'manual',
-    ...params
-  });
+  const response = await fetch(
+    `${process.env.URL_BASE}${path}?product=${process.env.PRODUCT_NAME}`,
+    {
+      mode: 'cors',
+      credentials: 'include',
+      redirect: 'manual',
+      ...params
+    }
+  );
   if (response.ok) {
     return await response.json();
   }
