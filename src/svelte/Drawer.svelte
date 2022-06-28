@@ -37,14 +37,20 @@
   import { isProUser } from '../js/identity.js';
   import { showMessage } from '../js/toast.js';
   import { CURRENT_BROWSER } from '../js/user-agent.js';
+  import { onMount } from 'svelte';
 
+  export let isFullscreen;
   let drawer;
   let drawerOpen = true;
-  let expand = false;
+  let expand = isFullscreen;
   let sortOrder = 'asc';
   let contextMenu;
   let contextMenuAnchor;
   let selectedProfileIndex;
+
+  onMount(() => {
+    expand = isFullscreen;
+  });
 
   function showMenu(event, { profileIndex }) {
     contextMenu.setOpen(false);
@@ -70,93 +76,94 @@
 >
   <Content class="main-drawer {expand ? 'main-drawer-expand' : 'main-drawer-collapsed'}">
     <List class="main-drawer-list">
-      <Item
-        class="main-drawer-item"
-        title={expand ? 'Hide navigation' : 'Show navigation'}
-        on:click={() => {
-          expand = !expand;
-        }}
-      >
-        <span class="main-drawer-icon-container">
-          <MdiIcon
-            size="24"
-            class="main-drawer-icon"
-            icon={expand ? mdiChevronLeft : mdiMenu}
-            color={PRIMARY_COLOR}
-          />
-        </span>
-      </Item>
-      <Separator nav />
-
-      <div class="profiles-list">
-        {#each $profiles as profile, profileIndex}
-          <Item
-            class="main-drawer-item"
-            title={profile.title}
-            selected={$selectedProfile === profile}
-            on:contextmenu={(e) => {
-              showMenu(e, { profile, profileIndex });
-            }}
-            on:click={() => {
-              selectProfile(profileIndex);
-              expand = false;
-            }}
-          >
-            <ProfileBadge {profile} />
-            <Text class="main-drawer-item-text">{profile.title}</Text>
-          </Item>
-        {/each}
+      {#if !isFullscreen}
         <Item
           class="main-drawer-item"
-          title={$profiles.length >= 3 && !$isProUser
-            ? 'Upgrade to Pro to add more profiles'
-            : 'Add profile'}
-          on:click={() => {
-            if ($profiles.length >= 3 && !$isProUser) {
-              showUpgradeRequired(
-                `You already have ${$profiles.length} profiles. Upgrade to Pro to add more profiles!`
-              );
-            } else {
-              addProfile();
-              expand = false;
-            }
-          }}
-        >
-          <span class="main-drawer-icon-container">
-            <MdiIcon size="24" class="main-drawer-icon" icon={mdiFilePlus} color={PRIMARY_COLOR} />
-          </span>
-          <Text class="main-drawer-item-text">Add profile</Text>
-          {#if $profiles.length >= 3}
-            <span class="pro-feature-lock">
-              <LockIcon />
-            </span>
-          {/if}
-        </Item>
-        <Item
-          class="main-drawer-item"
-          title="Sort profiles"
-          on:click={() => {
-            sortProfiles(sortOrder);
-            sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+          title={expand ? 'Hide navigation' : 'Show navigation'}
+          on:SMUI:action={() => {
+            expand = !expand;
           }}
         >
           <span class="main-drawer-icon-container">
             <MdiIcon
               size="24"
               class="main-drawer-icon"
-              icon={sortOrder === 'asc' ? mdiSortAscending : mdiSortDescending}
+              icon={expand ? mdiChevronLeft : mdiMenu}
               color={PRIMARY_COLOR}
             />
           </span>
-          <Text class="main-drawer-item-text">Sort profiles</Text>
         </Item>
-      </div>
+        <Separator nav />
+      {/if}
+
+      {#each $profiles as profile, profileIndex}
+        <Item
+          class="main-drawer-item"
+          title={profile.title}
+          tabindex="0"
+          selected={$selectedProfile === profile}
+          on:contextmenu={(e) => {
+            showMenu(e, { profile, profileIndex });
+          }}
+          on:SMUI:action={() => {
+            selectProfile(profileIndex);
+            expand = isFullscreen;
+          }}
+        >
+          <ProfileBadge {profile} />
+          <Text class="main-drawer-item-text">{profile.title}</Text>
+        </Item>
+      {/each}
+      <Item
+        class="main-drawer-item"
+        title={$profiles.length >= 3 && !$isProUser
+          ? 'Upgrade to Pro to add more profiles'
+          : 'Add profile'}
+        on:SMUI:action={() => {
+          if ($profiles.length >= 3 && !$isProUser) {
+            showUpgradeRequired(
+              `You already have ${$profiles.length} profiles. Upgrade to Pro to add more profiles!`
+            );
+          } else {
+            addProfile();
+            expand = isFullscreen;
+          }
+        }}
+      >
+        <span class="main-drawer-icon-container">
+          <MdiIcon size="24" class="main-drawer-icon" icon={mdiFilePlus} color={PRIMARY_COLOR} />
+        </span>
+        <Text class="main-drawer-item-text">Add profile</Text>
+        {#if $profiles.length >= 3}
+          <span class="pro-feature-lock">
+            <LockIcon />
+          </span>
+        {/if}
+      </Item>
+      <Item
+        class="main-drawer-item"
+        title="Sort profiles"
+        on:SMUI:action={() => {
+          sortProfiles(sortOrder);
+          sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        }}
+      >
+        <span class="main-drawer-icon-container">
+          <MdiIcon
+            size="24"
+            class="main-drawer-icon"
+            icon={sortOrder === 'asc' ? mdiSortAscending : mdiSortDescending}
+            color={PRIMARY_COLOR}
+          />
+        </span>
+        <Text class="main-drawer-item-text">Sort profiles</Text>
+      </Item>
 
       <Separator nav />
       <Item
         class="main-drawer-item"
         title="Rate us"
-        on:click={() =>
+        on:SMUI:action={() =>
           openLink(
             `https://modheader.com/review?browser=${CURRENT_BROWSER}&product=${process.env.PRODUCT_NAME}`
           )}
@@ -269,6 +276,6 @@
   </List>
 </MenuSurface>
 
-{#if expand}
+{#if expand && !isFullscreen}
   <div class="scrim" transition:fade={{ duration: 200 }} on:click={() => (expand = false)} />
 {/if}

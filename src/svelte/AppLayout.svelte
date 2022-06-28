@@ -12,6 +12,7 @@
   import { undo } from '../js/datasource.js';
   import { toastMessage, undoable } from '../js/toast.js';
 
+  export let isFullscreen;
   let snackbar;
   let snackbarMessage;
 
@@ -33,7 +34,7 @@
   onDestroy(unsubscribeToastMessage);
 </script>
 
-<Drawer />
+<Drawer {isFullscreen} />
 
 <AppContent class="app-content" style="--separator-color: {$selectedProfile.backgroundColor};">
   <slot />

@@ -195,7 +195,7 @@ button::-moz-focus-inner {
   margin-left: 0 !important;
   width: var(--app-content-width);
   position: absolute;
-  left: 36px;
+  left: var(--drawer-width);
 }
 
 // Autocomplete {
@@ -421,7 +421,7 @@ button::-moz-focus-inner {
   background-color: white;
   border-radius: 50%;
   position: absolute;
-  right: 0;
+  right: 2px;
   bottom: 0;
 }
 
