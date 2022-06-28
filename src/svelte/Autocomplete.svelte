@@ -8,6 +8,10 @@
     }
   }
 
+  export function focus() {
+    textField.focus();
+  }
+
   function unfocus() {
     isFocused = false;
   }

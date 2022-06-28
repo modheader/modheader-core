@@ -2,6 +2,7 @@
   import Drawer, { Content } from '@smui/drawer';
   import MenuSurface from '@smui/menu-surface';
   import List, { Item, Text, Separator } from '@smui/list';
+  import Textfield from '@smui/textfield';
   import {
     mdiContentCopy,
     mdiCheckboxBlankOutline,
@@ -15,11 +16,13 @@
     mdiMenu,
     mdiFilePlus,
     mdiArrowUp,
-    mdiArrowDown
+    mdiArrowDown,
+    mdiMagnify
   } from '@mdi/js';
   import { fade } from 'svelte/transition';
   import LockIcon from './LockIcon.svelte';
   import MdiIcon from './MdiIcon.svelte';
+  import Autocomplete from './Autocomplete.svelte';
   import ProfileBadge from './ProfileBadge.svelte';
   import {
     addProfile,
@@ -47,6 +50,8 @@
   let contextMenu;
   let contextMenuAnchor;
   let selectedProfileIndex;
+  let search = '';
+  let searchTextfield;
 
   onMount(() => {
     expand = isFullscreen;
@@ -66,6 +71,8 @@
   function openLink(url) {
     chrome.tabs.create({ url });
   }
+
+  $: normalizedSearch = search && search.toLowerCase();
 </script>
 
 <Drawer
@@ -95,24 +102,57 @@
         </Item>
         <Separator nav />
       {/if}
-
-      {#each $profiles as profile, profileIndex}
+      {#if expand}
+        <div class="profile-search-container">
+          <Autocomplete
+            bind:value={search}
+            bind:this={searchTextfield}
+            placeholder="Search profiles"
+          />
+          <MdiIcon
+            size="24"
+            class="main-drawer-icon search-leading-icon"
+            icon={mdiMagnify}
+            color={PRIMARY_COLOR}
+          />
+        </div>
+      {:else}
         <Item
           class="main-drawer-item"
-          title={profile.title}
-          tabindex="0"
-          selected={$selectedProfile === profile}
-          on:contextmenu={(e) => {
-            showMenu(e, { profile, profileIndex });
-          }}
+          title="Search"
           on:SMUI:action={() => {
-            selectProfile(profileIndex);
-            expand = isFullscreen;
+            expand = isFullscreen || !expand;
+            setTimeout(() => {
+              if (searchTextfield) {
+                searchTextfield.focus();
+              }
+            }, 100);
           }}
         >
-          <ProfileBadge {profile} />
-          <Text class="main-drawer-item-text">{profile.title}</Text>
+          <span class="main-drawer-icon-container">
+            <MdiIcon size="24" class="main-drawer-icon" icon={mdiMagnify} color={PRIMARY_COLOR} />
+          </span>
         </Item>
+      {/if}
+
+      {#each $profiles as profile, profileIndex}
+        {#if !search || profile.title.toLowerCase().includes(normalizedSearch)}
+          <Item
+            class="main-drawer-item"
+            title={profile.title}
+            selected={$selectedProfile === profile}
+            on:contextmenu={(e) => {
+              showMenu(e, { profile, profileIndex });
+            }}
+            on:SMUI:action={() => {
+              selectProfile(profileIndex);
+              expand = isFullscreen;
+            }}
+          >
+            <ProfileBadge {profile} />
+            <Text class="main-drawer-item-text">{profile.title}</Text>
+          </Item>
+        {/if}
       {/each}
       <Item
         class="main-drawer-item"

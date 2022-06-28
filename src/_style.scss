@@ -64,6 +64,15 @@ button::-moz-focus-inner {
   margin-top: 0.5rem !important;
 }
 
+.profile-search-container {
+  display: flex;
+  height: 40px;
+}
+
+.search-leading-icon {
+  padding: 8px;
+}
+
 .medium-icon-button {
   width: 36px;
   height: 36px;
