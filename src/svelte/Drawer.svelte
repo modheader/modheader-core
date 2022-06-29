@@ -108,6 +108,17 @@
             bind:value={search}
             bind:this={searchTextfield}
             placeholder="Search profiles"
+            on:keydown={(evt) => {
+              // DownArrow key
+              if (evt.keyCode === 40) {
+                const profileItem = document.querySelectorAll('.profile-item');
+                if (profileItem.length > 0) {
+                  evt.preventDefault();
+                  evt.stopPropagation();
+                  profileItem[0].focus();
+                }
+              }
+            }}
           />
           <MdiIcon
             size="24"
@@ -138,7 +149,7 @@
       {#each $profiles as profile, profileIndex}
         {#if !search || profile.title.toLowerCase().includes(normalizedSearch)}
           <Item
-            class="main-drawer-item"
+            class="main-drawer-item profile-item"
             title={profile.title}
             selected={$selectedProfile === profile}
             on:contextmenu={(e) => {

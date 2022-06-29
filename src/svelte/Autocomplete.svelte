@@ -42,6 +42,7 @@
     autocomplete="on"
     on:input={() => dispatch('input')}
     on:change={() => dispatch('change')}
+    on:keydown
     on:focus={selectText}
     on:blur={unfocus}
   />
