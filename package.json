@@ -32,6 +32,8 @@
     "@smui/textfield": "^6.0.0-beta.16",
     "@smui/top-app-bar": "^6.0.0-beta.16",
     "archiver": "^4.0.1",
+    "bluebird": "^3.7.2",
+    "fs-extra": "^7.0.1",
     "js-base64": "^3.2.4",
     "lodash": "^4.17.21",
     "svelte": "^3.46.4"
@@ -39,7 +41,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
-    "fs-extra": "^7.0.1",
     "flush-promises": "^1.0.2",
     "jest": "^27.5.1"
   },
