@@ -1,5 +1,4 @@
 <script>
-  import Bluebird from 'bluebird';
   import { encode } from 'js-base64';
   import Button, { Label } from '@smui/button';
   import FormField from '@smui/form-field';
@@ -23,7 +22,7 @@
 
   async function updateExportedText(selectedProfiles, keepStyles) {
     exportedText = JSON.stringify(
-      await Bluebird.map(selectedProfiles, (profile) => exportProfile(profile, { keepStyles }))
+      await Promise.all(selectedProfiles.map((profile) => exportProfile(profile, { keepStyles })))
     );
   }
 
