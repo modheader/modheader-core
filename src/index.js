@@ -9,6 +9,7 @@ export * as datasource from './js/datasource.js';
 export * as dialog from './js/dialog.js';
 export * as identity from './js/identity.js';
 export * as profile from './js/profile.js';
+export * as profileSync from './js/profile-sync.js';
 export * as storage from './js/storage.js';
 export * as storageLoader from './js/storage-loader.js';
 export * as storageWriter from './js/storage-writer.js';
@@ -25,6 +26,8 @@ import Chip from './svelte/Chip.svelte';
 import Drawer from './svelte/Drawer.svelte';
 import ExportDialog from './svelte/ExportDialog.svelte';
 import ImportDialog from './svelte/ImportDialog.svelte';
+import LiveProfileUrl from './svelte/LiveProfileUrl.svelte';
+import LiveProfileUrlDialog from './svelte/LiveProfileUrlDialog.svelte';
 import LockIcon from './svelte/LockIcon.svelte';
 import MdiIcon from './svelte/MdiIcon.svelte';
 import ProfileBadge from './svelte/ProfileBadge.svelte';
@@ -46,6 +49,8 @@ export {
   Drawer,
   ExportDialog,
   ImportDialog,
+  LiveProfileUrl,
+  LiveProfileUrlDialog,
   LockIcon,
   MdiIcon,
   ProfileBadge,

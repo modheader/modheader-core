@@ -7,6 +7,7 @@ export const showCloudBackupDialog = writable(false);
 export const showUpgradeDialog = writable(false);
 export const upgradeDialogString = writable('');
 export const requireSignInForExportDialog = writable(false);
+export const setupLiveProfileUrlDialog = writable(false);
 
 export function showUpgradeRequired(upgradeText) {
   showUpgradeDialog.set(true);

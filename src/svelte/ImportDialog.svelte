@@ -2,16 +2,20 @@
   import lodashIsEmpty from 'lodash/isEmpty.js';
   import lodashIsArray from 'lodash/isArray.js';
   import Button, { Label } from '@smui/button';
-  import { mdiFileImport, mdiCheck } from '@mdi/js';
+  import { mdiFileImport, mdiImport } from '@mdi/js';
   import Textfield from '@smui/textfield';
   import BaseDialog from './BaseDialog.svelte';
   import MdiIcon from './MdiIcon.svelte';
+  import LockIcon from './LockIcon.svelte';
   import * as api from '../js/api.js';
   import { DISABLED_COLOR, PRIMARY_COLOR } from '../js/constants.js';
-  import { showImportDialog } from '../js/dialog.js';
-  import { importProfiles } from '../js/profile.js';
+  import { isProUser } from '../js/identity.js';
+  import { showUpgradeRequired, showImportDialog } from '../js/dialog.js';
+  import { importProfiles, selectedProfile, updateProfile } from '../js/profile.js';
   import { showMessage } from '../js/toast.js';
+  import { openUrl } from '../js/tabs.js';
   import { isChromiumBasedBrowser } from '../js/user-agent.js';
+  import { reloadLiveProfile } from '../js/profile-sync.js';
 
   let importText = '';
   let uploadFileInput;
@@ -34,6 +38,19 @@
     }
   }
 
+  async function enableAutoSync() {
+    const updatedProfile = await reloadLiveProfile({
+      ...$selectedProfile,
+      liveProfileUrl: importText
+    });
+    if (updatedProfile) {
+      updateProfile(updatedProfile);
+      showImportDialog.set(false);
+    } else {
+      showMessage('Failed to import profiles. Please double check your URL.');
+    }
+  }
+
   function loadFile(file) {
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -47,12 +64,45 @@
     };
     reader.readAsText(file, 'utf8');
   }
+
+  $: canImportLive =
+    importText && (importText.startsWith('https://') || importText.startsWith('http://'));
 </script>
 
 {#if $showImportDialog}
   <BaseDialog bind:open={$showImportDialog} title="Import profile">
     <div>Enter the URL / JSON encoded profile here to import.</div>
-    <Textfield textarea class="extra-large-textarea" input$rows="40" bind:value={importText} />
+    <Textfield class="extra-large-textarea" textarea input$rows="40" bind:value={importText} />
+
+    <div class="caption">
+      Import a live profile to auto-sync it with the source profile URL. Only import live profile if
+      you trust the profile URL owner.
+    </div>
+    <div>
+      <Button
+        disabled={!canImportLive}
+        on:click={() => {
+          if ($isProUser) {
+            enableAutoSync();
+          } else {
+            showUpgradeRequired('Upgrade to Pro to import live profile');
+          }
+        }}
+        variant="raised"
+      >
+        <MdiIcon size="24" icon={mdiImport} color={canImportLive ? '#fff' : DISABLED_COLOR} />
+        <Label class="ml-small">Import live profile</Label>
+        <LockIcon />
+      </Button>
+      <Button
+        on:click={() =>
+          // TODO(hao): Update URL
+          openUrl({ url: 'https://docs.modheader.com/profiles/sharing-and-import' })}
+      >
+        <MdiIcon size="24" icon={mdiImport} color={PRIMARY_COLOR} />
+        <Label class="ml-small">Learn more</Label>
+      </Button>
+    </div>
     <svelte:fragment slot="footer">
       {#if isChromiumBasedBrowser()}
         <!-- Opening the file would close the popup in Firefox, so we can't support it. -->
@@ -64,13 +114,13 @@
         />
         <Button on:click={() => uploadFileInput.click()}>
           <MdiIcon size="24" icon={mdiFileImport} color={PRIMARY_COLOR} />
-          <Label class="ml-small">Load from file</Label>
+          <Label class="ml-small">Load file</Label>
         </Button>
       {/if}
       <Button disabled={lodashIsEmpty(importText)} on:click={() => done()}>
         <MdiIcon
           size="24"
-          icon={mdiCheck}
+          icon={mdiImport}
           color={lodashIsEmpty(importText) ? DISABLED_COLOR : PRIMARY_COLOR}
         />
         <Label class="ml-small">Import</Label>
