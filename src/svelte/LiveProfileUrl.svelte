@@ -18,7 +18,7 @@
     <div class="d-flex">
       <Textfield
         variant="outlined"
-        label="Auto-sync profile URL:"
+        label="Auto-sync profile URL"
         class="flex-grow"
         value={profile.liveProfileUrl}
         input$readonly
@@ -91,6 +91,9 @@
     <div class="mt-1">
       {#if profile.liveProfileStatus === Status.ACTIVE}
         Profile auto-sync is on. Changes may be overridden in the next auto-sync.
+        {#if profile.liveProfileIsOwner}
+          Export your changes so it does not get overridden.
+        {/if}
       {:else}
         Profile auto-sync is off. Click "Resume" to restart auto-sync.
       {/if}

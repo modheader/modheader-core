@@ -15,7 +15,7 @@
   import { showMessage } from '../js/toast.js';
   import { openUrl } from '../js/tabs.js';
   import { isChromiumBasedBrowser } from '../js/user-agent.js';
-  import { reloadLiveProfile } from '../js/profile-sync.js';
+  import { isLiveProfileUrl, reloadLiveProfile } from '../js/profile-sync.js';
 
   let importText = '';
   let uploadFileInput;
@@ -65,8 +65,7 @@
     reader.readAsText(file, 'utf8');
   }
 
-  $: canImportLive =
-    importText && (importText.startsWith('https://') || importText.startsWith('http://'));
+  $: canImportLive = isLiveProfileUrl(importText);
 </script>
 
 {#if $showImportDialog}

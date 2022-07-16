@@ -10,7 +10,7 @@
   import { setupLiveProfileUrlDialog, showUpgradeRequired } from '../js/dialog.js';
   import { updateProfile, selectedProfile } from '../js/profile.js';
   import { showMessage } from '../js/toast.js';
-  import { reloadLiveProfile } from '../js/profile-sync.js';
+  import { isLiveProfileUrl, reloadLiveProfile } from '../js/profile-sync.js';
 
   let importText = '';
 
@@ -29,12 +29,11 @@
 
   setupLiveProfileUrlDialog.subscribe((val) => {
     if (val) {
-      importText = $selectedProfile.liveProfileUrl;
+      importText = $selectedProfile.liveProfileUrl || '';
     }
   });
 
-  $: canImportLive =
-    importText && (importText.startsWith('https://') || importText.startsWith('http://'));
+  $: canImportLive = isLiveProfileUrl(importText);
 </script>
 
 {#if $setupLiveProfileUrlDialog}
@@ -43,7 +42,7 @@
       bind:value={importText}
       class="mt-1 d-flex"
       variant="outlined"
-      label="Auto-sync profile URL:"
+      label="Auto-sync profile URL"
     />
 
     <div class="caption">

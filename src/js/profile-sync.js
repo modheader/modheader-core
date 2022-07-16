@@ -1,5 +1,6 @@
+import lodashLast from 'lodash/last';
 import { setLocal } from './storage.js';
-import { parseProfile } from './api.js';
+import { getProfile } from './api.js';
 import { fixProfiles } from './profile.js';
 
 export const Status = {
@@ -7,14 +8,21 @@ export const Status = {
   PAUSED: 'paused'
 };
 
+export async function isLiveProfileUrl(url) {
+  return url && url.startsWith(`${process.env.URL_BASE}/profile/`);
+}
+
 export async function reloadLiveProfile(profile) {
   try {
-    const importedProfiles = await parseProfile({ data: profile.liveProfileUrl });
-    if (importedProfiles.length) {
+    const parsedUrl = new URL(profile.liveProfileUrl);
+    const profileId = lodashLast(parsedUrl.pathname.split('/'));
+    const profileResponse = await getProfile({ profileId });
+    if (profileResponse && profileResponse.profile) {
       console.log('Updated profile. Profile URL', profile.liveProfileUrl);
       return {
-        ...importedProfiles[0],
-        profileId: profile.liveProfileUrl,
+        ...profileResponse.profile,
+        profileId: profileResponse.isOwner ? profileResponse.profileId : profile.id,
+        liveProfileIsOwner: profileResponse.isOwner,
         liveProfileUrl: profile.liveProfileUrl,
         liveProfileStatus: Status.ACTIVE,
         liveProfileLastSyncTimestamp: Date.now()
