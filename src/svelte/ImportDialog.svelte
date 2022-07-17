@@ -46,7 +46,7 @@
       await importProfiles([updatedProfile]);
       showImportDialog.set(false);
     } else {
-      showMessage('Failed to import profiles. Please double check your URL.');
+      showMessage('Failed to import profiles. Please double check your URL and permission.');
     }
   }
 
