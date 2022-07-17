@@ -11,7 +11,7 @@
   import { DISABLED_COLOR, PRIMARY_COLOR } from '../js/constants.js';
   import { isProUser } from '../js/identity.js';
   import { showUpgradeRequired, showImportDialog } from '../js/dialog.js';
-  import { importProfiles, selectedProfile, updateProfile } from '../js/profile.js';
+  import { importProfiles } from '../js/profile.js';
   import { showMessage } from '../js/toast.js';
   import { openUrl } from '../js/tabs.js';
   import { isChromiumBasedBrowser } from '../js/user-agent.js';
@@ -40,11 +40,10 @@
 
   async function enableAutoSync() {
     const updatedProfile = await reloadLiveProfile({
-      ...$selectedProfile,
       liveProfileUrl: importText
     });
     if (updatedProfile) {
-      updateProfile(updatedProfile);
+      await importProfiles([updatedProfile]);
       showImportDialog.set(false);
     } else {
       showMessage('Failed to import profiles. Please double check your URL.');
