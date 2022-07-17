@@ -74,8 +74,8 @@
     <Textfield class="extra-large-textarea" textarea input$rows="40" bind:value={importText} />
 
     <div class="caption">
-      Import a live profile to auto-sync it with the source profile URL. Only import live profile if
-      you trust the profile URL owner.
+      Import with auto-sync to periodically reload the profile from the source profile URL. Only
+      import auto-sync profile if you trust the profile URL owner.
     </div>
     <div>
       <Button
@@ -84,13 +84,13 @@
           if ($isProUser) {
             enableAutoSync();
           } else {
-            showUpgradeRequired('Upgrade to Pro to import live profile');
+            showUpgradeRequired('Upgrade to Pro to import auto-sync profile');
           }
         }}
         variant="raised"
       >
         <MdiIcon size="24" icon={mdiImport} color={canImportLive ? '#fff' : DISABLED_COLOR} />
-        <Label class="ml-small">Import live profile</Label>
+        <Label class="ml-small">Import with auto-sync</Label>
         <LockIcon />
       </Button>
       <Button
