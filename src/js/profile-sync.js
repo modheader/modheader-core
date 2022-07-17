@@ -8,7 +8,7 @@ export const Status = {
   PAUSED: 'paused'
 };
 
-export async function isLiveProfileUrl(url) {
+export function isLiveProfileUrl(url) {
   return url && url.startsWith(`${process.env.URL_BASE}/profile/`);
 }
 
