@@ -442,6 +442,14 @@ button::-moz-focus-inner {
   bottom: 0;
 }
 
+.profile-badge-autosync-status {
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  bottom: 0;
+}
+
 // ProfileBadgeDialog
 .color-picker-container {
   margin-top: 10px;
