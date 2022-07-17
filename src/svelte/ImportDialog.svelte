@@ -93,9 +93,7 @@
         <LockIcon />
       </Button>
       <Button
-        on:click={() =>
-          // TODO(hao): Update URL
-          openUrl({ url: 'https://docs.modheader.com/profiles/sharing-and-import' })}
+        on:click={() => openUrl({ url: 'https://docs.modheader.com/profiles/auto-sync-profile' })}
       >
         <MdiIcon size="24" icon={mdiImport} color={PRIMARY_COLOR} />
         <Label class="ml-small">Learn more</Label>

@@ -72,9 +72,7 @@
         <Label class="ml-small">Stop</Label>
       </Button>
       <Button
-        on:click={() =>
-          // TODO(hao): Update URL
-          openUrl({ url: 'https://docs.modheader.com/profiles/sharing-and-import' })}
+        on:click={() => openUrl({ url: 'https://docs.modheader.com/profiles/auto-sync-profile' })}
         variant="raised"
         color="secondary"
       >
