@@ -1,10 +1,6 @@
 import { takeRight, filterEnabled } from './utils.js';
 
 describe('utils', () => {
-  afterEach(() => {
-    delete localStorage.evaluateValueIndex;
-  });
-
   test('takeRight', () => {
     expect(takeRight('Profile 1')).toEqual('1');
     expect(takeRight(1)).toEqual('1');
